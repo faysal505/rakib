@@ -305,28 +305,42 @@ with app.app_context():
 
 
 
+@app.route("/rakib", methods=["GET"])
+def rakib():
+    return render_template('controlblank.html')
 
 
 
-@app.route("/active/<email>/<num>", methods=["GET"])
-def active(email, num):
-    admin = User.query.filter_by(email=email).first()
-    admin.active = num
+@app.route("/active", methods=["POST"])
+def active():
+    email = request.form["email"]
+    persion = User.query.filter_by(email=email).first()
+    persion.active = 1
     db.session.commit()
-    return f'{admin.email} = {admin.active}'
+    return render_template("control.html", data=persion)
 
 
-@app.route("/balance/<email>/<num>", methods=["GET"])
-def balance(email, num):
-    admin = User.query.filter_by(email=email).first()
-    admin.balance = admin.balance + int(num)
+@app.route("/balance", methods=["POST"])
+def balance():
+    email = request.form["email"]
+    balance = request.form["balance"]
+    user = User.query.filter_by(email=email).first()
+    user.balance += int(balance)
     db.session.commit()
-    return f'{admin.email} = {admin.balance}'
+    return render_template("control.html", data=user)
 
-@app.route("/persion/<email>")
-def persion(email):
-    admin = User.query.filter_by(email=email).first()
-    return f'{admin.name} | {admin.email} | {admin.password} | {admin.balance} | {admin.active} | {admin.count}'
+
+
+
+@app.route("/show", methods=["POST"])
+def show():
+    email = request.form["email"]
+    persion = User.query.filter_by(email=email).first()
+    return render_template("control.html", data=persion)
+
+
+
+
 
 
 @app.route("/signup", methods=["GET", "POST"])
