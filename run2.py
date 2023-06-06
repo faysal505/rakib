@@ -156,7 +156,7 @@ def nidInfo(nid, birth):
 
     nidDate = nidBirth(str(dateOfBirth))
 
-    tody = datetime.datetime.now()
+    tody = datetime.now()
     date = str(tody.date())
 
     def EnNumToBn(s):
