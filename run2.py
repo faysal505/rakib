@@ -469,9 +469,9 @@ def results():
             admin.balance = admin.balance - admin.rate
             db.session.commit()
             render = render_template("nid.html", data=person, image=source)
-            htmlToPdf(render, person['nameEn'])
-            return send_from_directory('static', person['nameEn'] + '.pdf', as_attachment=True)
-            # return render
+#             htmlToPdf(render, person['nameEn'])
+#             return send_from_directory('static', person['nameEn'] + '.pdf', as_attachment=True)
+            return render
         else:
             return render_template("home.html", balance=admin.balance, rate=admin.rate, alert='<script>alert("Not Enough Balance")</script>')
 
